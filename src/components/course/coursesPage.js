@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 //import { bindActionCreators } from 'redux';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 //import { browserHistory } from 'react-router';
-//import * as courseActions from '../../actions/courseActions';
+import * as courseActions from '../actions/courseActions';
 //import CourseList from './CourseList';
 
 class CoursesPage extends React.Component {
@@ -28,7 +28,7 @@ class CoursesPage extends React.Component {
     }
 
     onClickSave() {
-        alert(`Saving ${this.state.course.title}`);
+        this.props.dispatch(courseActions.createCourse(this.state.course));
     }
 
     render() {
@@ -65,11 +65,11 @@ class CoursesPage extends React.Component {
 //    courses: PropTypes.array.isRequired
 //};
 
-//function mapStateToProps(state, ownProps) {
-//    return {
-//        courses: state.courses
-//    };
-//}
+function mapStateToProps(state, ownProps) {
+    return {
+        courses: state.courses  //return what you want to expose. if it wasnt aliased in reducer/index.js, then this would be courses: state.courseReducer
+    };
+}
 
 //function mapDispatchToProps(dispatch) {
 //    return {
@@ -77,5 +77,4 @@ class CoursesPage extends React.Component {
 //    };
 //}
 
-//export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
-export default CoursesPage;
+export default connect(mapStateToProps)(CoursesPage); //connect calls function and then calls the resulting function with coursespage in second paren
