@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-//import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //import { browserHistory } from 'react-router';
 import * as courseActions from '../actions/courseActions';
@@ -28,13 +28,18 @@ class CoursesPage extends React.Component {
     }
 
     onClickSave() {
-        this.props.dispatch(courseActions.createCourse(this.state.course));
+        this.props.actions.createCourse(this.state.course);
+    }
+
+    courseRow(course, index) {
+        return <div key={index}>{course.title}</div>;
     }
 
     render() {
         return (
             <div>
                 <h1>Courses</h1>
+                {this.props.courses.map(this.courseRow)}
                 <h2>Add Course</h2>
                 <input type="text"
                     onChange={this.onTitleChange}
@@ -60,10 +65,10 @@ class CoursesPage extends React.Component {
     //}
 }
 
-//CoursesPage.propTypes = {
-//    actions: PropTypes.object.isRequired,
-//    courses: PropTypes.array.isRequired
-//};
+CoursesPage.propTypes = {
+    courses: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state, ownProps) {
     return {
@@ -71,10 +76,14 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-//function mapDispatchToProps(dispatch) {
-//    return {
-//        actions: bindActionCreators(courseActions, dispatch)
-//    };
-//}
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(courseActions, dispatch)
+    };
+}
 
-export default connect(mapStateToProps)(CoursesPage); //connect calls function and then calls the resulting function with coursespage in second paren
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage); //connect calls function and then calls the resulting function with coursespage in second paren
+
+/*
+mapStateToProps and mapDispatchToProps can really be called what ever you want
+*/
