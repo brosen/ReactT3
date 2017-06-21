@@ -1,6 +1,6 @@
 import expect from 'expect';
 import { createStore} from 'redux';
-import rootReducers from '../reducers'
+import rootReducers from '../reducers';
 import initialState from '../reducers/initialState';
 import * as courseActions from '../actions/courseActions';
 
