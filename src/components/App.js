@@ -21,11 +21,10 @@ App.propTypes = {
     loading: PropTypes.bool.isRequired
 };
 
-//function mapStateToProps(state, ownProps) {
-//    return {
-//        loading: state.ajaxCallsInProgress > 0
-//    };
-//}
+function mapStateToProps(state, ownProps) {
+    return {
+        loading: state.ajaxCallsInProgress > 0
+    };
+}
 
-//export default connect(mapStateToProps)(App);
-export default App;
+export default connect(mapStateToProps)(App);
